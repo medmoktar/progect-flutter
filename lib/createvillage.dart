@@ -30,56 +30,6 @@ class _Createvillage extends State<Createvillage> {
 
   late Database database;
 
-//   initedata() async {
-//     var databasesPath = await getDatabasesPath();
-//     String path = p.join(databasesPath, 'village.db');
-
-// // open the database
-
-//     database = await openDatabase(path, version: 1,
-//         onCreate: (Database db, int version) async {
-//       // When creating the db, create the table
-//       return db.execute(
-//           'CREATE TABLE village (id INTEGER PRIMARY KEY, nom TEXT,nom_arabic TEXT, commune_id INTEGER,Popilation INTEGER, altidude REAL,longitude REAL)');
-//     });
-//   }
-
-  // insertdata(Map<String, dynamic> villageData) async {
-  //   await database.insert(
-  //     'village',
-  //     villageData,
-  //     conflictAlgorithm: ConflictAlgorithm.replace,
-  //   );
-  // }
-
-  // Future<List<Map<String, dynamic>>> _getStoredVillages() async {
-  //   return await database.query('villages');
-  // }
-
-  // _sendStoredVillages() async {
-  //   List<Map<String, dynamic>> villages = await _getStoredVillages();
-  //   for (var i in villages) {
-  //     var url = Uri.parse('${Url().URL}/api/village/create');
-  //     final Map<String, String> headers = {'Content-Type': 'application/json'};
-  //     final response =
-  //         await http.post(url, headers: headers, body: jsonEncode(i));
-
-  //     if (response.statusCode == 200) {
-  //       await database
-  //           .delete('villages', where: 'id = ?', whereArgs: [i['id']]);
-  //     }
-  //   }
-  // }
-
-  // Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
-  //   setState(() {
-  //     conxResult = result as ConnectivityResult;
-  //   });
-
-  //   if (result != ConnectivityResult.none) {
-  //     await _sendStoredVillages();
-  //   }
-  // }
 
   create() async {
     var url = Uri.parse('${Url().URL}/api/village/create');

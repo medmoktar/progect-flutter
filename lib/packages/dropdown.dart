@@ -73,6 +73,7 @@ class _AppTextFieldState extends State<AppTextField> {
   void showSnackBar(String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
+        
   }
 
   @override

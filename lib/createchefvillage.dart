@@ -16,14 +16,15 @@ class Createchefvillage extends StatefulWidget {
 class _Createchefvillage extends State<Createchefvillage> {
   GlobalKey<FormState> valid = GlobalKey();
   TextEditingController _name = TextEditingController();
+  TextEditingController _nom_local = TextEditingController();
   TextEditingController NNI = TextEditingController();
   TextEditingController tel = TextEditingController();
   create() async {
     var url = Uri.parse('${Url().URL}/api/chefvillage/create');
     Map data = {
-      'nom': _name.text,
+      'nom_administratif': _name.text,
+      'nom_local': _nom_local.text,
       'village_id': widget.id,
-      'NNI': 123,
       'tel': tel.text
     };
 
@@ -31,7 +32,7 @@ class _Createchefvillage extends State<Createchefvillage> {
 
     final reponse =
         await http.post(url, headers: headers, body: jsonEncode(data));
-
+    print(reponse.statusCode);
     if (reponse.statusCode == 200) {
       AwesomeDialog(
         context: context,
@@ -77,7 +78,37 @@ class _Createchefvillage extends State<Createchefvillage> {
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.only(
                           left: 8, bottom: 0, top: 0, right: 15),
-                      hintText: "Entrer le nom",
+                      hintText: "Entrer le Nom Administratif",
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: Colors.blue,
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 1,
+                          style: BorderStyle.none,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Entrer une Nom";
+                      }
+                      return null;
+                    }),
+              ),
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: TextFormField(
+                    controller: _nom_local,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.only(
+                          left: 8, bottom: 0, top: 0, right: 15),
+                      hintText: "Entrer le Nom Local",
                       prefixIcon: Icon(
                         Icons.person,
                         color: Colors.blue,
@@ -100,36 +131,6 @@ class _Createchefvillage extends State<Createchefvillage> {
                     }),
               ),
 
-              // Container(
-              //   padding: const EdgeInsets.only(left: 60, right: 60),
-              //   child: TextFormField(
-              //       controller: NNI,
-              //       decoration: const InputDecoration(
-              //         contentPadding:
-              //             EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-              //         // prefixIcon: Icon(Icons.lock_outline),
-              //         hintText: "Entrer NNI",
-              //         hintStyle: TextStyle(fontWeight: FontWeight.w300),
-              //         focusedBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.all(Radius.circular(10)),
-              //             borderSide: BorderSide(color: Color(0xffD9D9D9))),
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.all(Radius.circular(10)),
-              //             borderSide: BorderSide(color: Color(0xffD9D9D9))),
-              //         focusedErrorBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.all(Radius.circular(10)),
-              //             borderSide: BorderSide(color: Color(0xffD9D9D9))),
-              //         errorBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.all(Radius.circular(10)),
-              //             borderSide: BorderSide(color: Color(0xffD9D9D9))),
-              //       ),
-              //       validator: (value) {
-              //         if (value!.isEmpty) {
-              //           return "Entrer une NNI";
-              //         }
-              //         return null;
-              //       }),
-              // ),
               SizedBox(height: 20),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),

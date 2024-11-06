@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rapport/chefvillage.dart';
 import 'package:rapport/createvillage.dart';
-import 'package:rapport/detailsvillage.dart';
+// import 'package:rapport/detailsvillage.dart';
 import 'package:rapport/ecole.dart';
 import 'package:rapport/hopitaux.dart';
+import 'package:rapport/reseaux.dart';
 import 'package:rapport/url.dart';
 
 class Village extends StatefulWidget {
@@ -227,7 +228,16 @@ class _Village extends State<Village> {
                                                           Icons.person,
                                                         ),
                                                       ),
-                                                      Text("Chef")
+                                                      Text(
+                                                        "Chef",
+                                                        style: TextStyle(
+                                                          fontSize: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.03,
+                                                        ),
+                                                      )
                                                     ],
                                                   ),
                                                 ),
@@ -244,7 +254,7 @@ class _Village extends State<Village> {
                                                               context: context,
                                                               builder:
                                                                   (context) =>
-                                                                      Chefvillage(
+                                                                      Reseaux(
                                                                         id: data[index]
                                                                             [
                                                                             "id"],
@@ -255,7 +265,14 @@ class _Village extends State<Village> {
                                                               .network_cell_rounded,
                                                         ),
                                                       ),
-                                                      Text("Reseaux")
+                                                      Text("Reseaux",
+                                                          style: TextStyle(
+                                                            fontSize: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.03,
+                                                          ))
                                                     ],
                                                   ),
                                                 ),
@@ -278,7 +295,14 @@ class _Village extends State<Village> {
                                                           Icons.language,
                                                         ),
                                                       ),
-                                                      Text("Language")
+                                                      Text("Language",
+                                                          style: TextStyle(
+                                                            fontSize: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.03,
+                                                          ))
                                                     ],
                                                   ),
                                                 ),
@@ -306,7 +330,14 @@ class _Village extends State<Village> {
                                                           size: 30,
                                                         ),
                                                       ),
-                                                      Text("eaux")
+                                                      Text("eaux",
+                                                          style: TextStyle(
+                                                            fontSize: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.03,
+                                                          ))
                                                     ],
                                                   ),
                                                 ),
@@ -327,7 +358,14 @@ class _Village extends State<Village> {
                                                             Icons.school,
                                                             color: Colors.blue,
                                                           )),
-                                                      Text("Edication")
+                                                      Text("Edication",
+                                                          style: TextStyle(
+                                                            fontSize: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.03,
+                                                          ))
                                                     ],
                                                   ),
                                                 ),
@@ -353,7 +391,14 @@ class _Village extends State<Village> {
                                                         ),
                                                         color: Colors.red,
                                                       ),
-                                                      Text("Hopitaux")
+                                                      Text("Hopitaux",
+                                                          style: TextStyle(
+                                                            fontSize: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.03,
+                                                          ))
                                                     ],
                                                   ),
                                                 ),
@@ -365,11 +410,11 @@ class _Village extends State<Village> {
                                               child: ElevatedButton(
                                                   onPressed: () {
                                                     id = data[index]["id"];
-                                                    Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                Detailsvillage(
-                                                                    id: id)));
+                                                    // Navigator.of(context).push(
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (context) =>
+                                                    //             Detailsvillage(
+                                                    //                 id: id)));
                                                   },
                                                   style:
                                                       ElevatedButton.styleFrom(
@@ -378,12 +423,7 @@ class _Village extends State<Village> {
                                                     foregroundColor:
                                                         Colors.white,
                                                   ),
-                                                  child: Column(
-                                                    children: [
-                                                      Text("التفاصيل"),
-                                                      const Text("Details")
-                                                    ],
-                                                  )),
+                                                  child: Text("Modiffier")),
                                             )
                                           ],
                                         )),
@@ -536,12 +576,12 @@ class Search extends SearchDelegate {
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: ElevatedButton(
                                       onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Detailsvillage(
-                                                        id: filter[index]
-                                                            ["id"])));
+                                        // Navigator.of(context).push(
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             Detailsvillage(
+                                        //                 id: filter[index]
+                                        //                     ["id"])));
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.blue,
