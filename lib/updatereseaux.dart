@@ -1,20 +1,20 @@
 import 'dart:convert';
-
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:drop_down_list/model/selected_list_item.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/material.dart';
 import 'package:rapport/packages/dropdown.dart';
 import 'package:rapport/url.dart';
 
-class Createreseaux extends StatefulWidget {
+class Updatereseaux extends StatefulWidget {
   final id;
-  const Createreseaux({super.key, required this.id});
+  const Updatereseaux({super.key, required this.id});
+
   @override
-  State<Createreseaux> createState() => _CreatereseauxState();
+  State<Updatereseaux> createState() => _UpdatereseauxState();
 }
 
-class _CreatereseauxState extends State<Createreseaux> {
+class _UpdatereseauxState extends State<Updatereseaux> {
   late List reseau = [];
   reseaux() async {
     var x = await http.get(Uri.parse("${Url().URL}/api/reseaux"));
@@ -22,7 +22,11 @@ class _CreatereseauxState extends State<Createreseaux> {
     setState(() {});
   }
 
-  create(id, List data) async {
+  delete(id) async {
+    await http.delete(Uri.parse("${Url().URL}/api/reseaux/delete/$id"));
+  }
+
+  update(id, List data) async {
     var url = Uri.parse("${Url().URL}/api/village/reseaux/$id");
     final Map<String, String> headers = {'Content-Type': 'application/json'};
     int x = 0;
@@ -45,8 +49,6 @@ class _CreatereseauxState extends State<Createreseaux> {
       ).show();
     }
   }
-
- 
 
   @override
   initState() {
@@ -75,14 +77,13 @@ class _CreatereseauxState extends State<Createreseaux> {
               hint: "Select resaux",
               isCitySelected: true,
               MultileSelection: true,
-              
             ),
-            
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: ElevatedButton(
                   onPressed: () {
-                    create(widget.id, f.list);
+                    delete(widget.id);
+                    update(widget.id, f.list);
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

@@ -17,7 +17,6 @@ class _Createchefvillage extends State<Createchefvillage> {
   GlobalKey<FormState> valid = GlobalKey();
   TextEditingController _name = TextEditingController();
   TextEditingController _nom_local = TextEditingController();
-  TextEditingController NNI = TextEditingController();
   TextEditingController tel = TextEditingController();
   create() async {
     var url = Uri.parse('${Url().URL}/api/chefvillage/create');

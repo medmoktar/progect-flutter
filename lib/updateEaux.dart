@@ -7,23 +7,31 @@ import 'package:http/http.dart' as http;
 import 'package:rapport/packages/dropdown.dart';
 import 'package:rapport/url.dart';
 
-class Createreseaux extends StatefulWidget {
+class Updateeaux extends StatefulWidget {
   final id;
-  const Createreseaux({super.key, required this.id});
+  const Updateeaux({super.key, required this.id});
+
   @override
-  State<Createreseaux> createState() => _CreatereseauxState();
+  State<Updateeaux> createState() => _UpdateeauxState();
 }
 
-class _CreatereseauxState extends State<Createreseaux> {
-  late List reseau = [];
-  reseaux() async {
-    var x = await http.get(Uri.parse("${Url().URL}/api/reseaux"));
-    reseau = jsonDecode(x.body);
+class _UpdateeauxState extends State<Updateeaux> {
+  late List eaux = [];
+  pointeaux() async {
+    var x = await http.get(Uri.parse("${Url().URL}/api/pointdeaux"));
+    eaux = jsonDecode(x.body);
     setState(() {});
   }
 
-  create(id, List data) async {
-    var url = Uri.parse("${Url().URL}/api/village/reseaux/$id");
+  delete(id) async {
+    await http.delete(Uri.parse("${Url().URL}/api/pointdeaux/delete/$id"));
+  }
+
+  late AppTextField f;
+  TextEditingController z = TextEditingController();
+
+  update(id, List data) async {
+    var url = Uri.parse("${Url().URL}/api/village/pointdeaux/$id");
     final Map<String, String> headers = {'Content-Type': 'application/json'};
     int x = 0;
     for (var i = 0; i < data.length; i++) {
@@ -46,16 +54,13 @@ class _CreatereseauxState extends State<Createreseaux> {
     }
   }
 
- 
-
   @override
-  initState() {
-    reseaux();
+  void initState() {
+    // TODO: implement initState
     super.initState();
+    pointeaux();
   }
 
-  late AppTextField f;
-  TextEditingController z = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,21 +73,20 @@ class _CreatereseauxState extends State<Createreseaux> {
             f = AppTextField(
               textEditingController: z,
               cities: [
-                for (var i = 0; i < reseau.length; i++)
-                  SelectedListItem(name: reseau[i]['nom'])
+                for (var i = 0; i < eaux.length; i++)
+                  SelectedListItem(name: eaux[i]['nom'])
               ],
               title: "",
-              hint: "Select resaux",
+              hint: "Select Points d'eaux",
               isCitySelected: true,
               MultileSelection: true,
-              
             ),
-            
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: ElevatedButton(
                   onPressed: () {
-                    create(widget.id, f.list);
+                    delete(widget.id);
+                    update(widget.id, f.list);
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

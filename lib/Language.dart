@@ -1,32 +1,32 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:rapport/createreseaux.dart';
-import 'package:rapport/updatereseaux.dart';
-import 'package:rapport/url.dart';
 import 'package:http/http.dart' as http;
+import 'package:rapport/createLanguage.dart';
+import 'package:rapport/updateLanguage.dart';
+import 'package:rapport/url.dart';
 
-class Reseaux extends StatefulWidget {
+class Language extends StatefulWidget {
   final id;
-  const Reseaux({super.key, required this.id});
+  const Language({super.key, required this.id});
 
   @override
-  State<Reseaux> createState() => _Reseaux();
+  State<Language> createState() => _LanguageState();
 }
 
-class _Reseaux extends State<Reseaux> {
+class _LanguageState extends State<Language> {
   late List A = [];
   late bool t = false;
-  reseaux(id) async {
-    var x = await http.get(Uri.parse("${Url().URL}/api/reseaux/store/$id"));
+  langue(id) async {
+    var x = await http.get(Uri.parse("${Url().URL}/api/language/store/$id"));
     A = jsonDecode(x.body);
     t = true;
     setState(() {});
   }
 
   @override
-  void initState() { 
-    reseaux(widget.id);
+  void initState() {
+    langue(widget.id);
     super.initState();
   }
 
@@ -44,14 +44,14 @@ class _Reseaux extends State<Reseaux> {
                     child: Card(
                       child: ListTile(
                         title: Text(
-                          "Reseaux",
+                          "Languages",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         trailing: ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      Createreseaux(id: widget.id)));
+                                      Createlanguage(id: widget.id)));
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue,
@@ -66,7 +66,7 @@ class _Reseaux extends State<Reseaux> {
                         height: 25,
                       ),
                       const Text(
-                        "Reseaux",
+                        "Languages",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -100,9 +100,8 @@ class _Reseaux extends State<Reseaux> {
                         child: TextButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Updatereseaux(
-                                        id: widget.id,
-                                      )));
+                                  builder: (context) =>
+                                      Updatelanguage(id: widget.id)));
                             },
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.blue,

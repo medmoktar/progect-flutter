@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:rapport/Language.dart';
 import 'package:rapport/chefvillage.dart';
 import 'package:rapport/createvillage.dart';
+import 'package:rapport/eaux.dart';
 // import 'package:rapport/detailsvillage.dart';
 import 'package:rapport/ecole.dart';
 import 'package:rapport/hopitaux.dart';
@@ -285,7 +287,7 @@ class _Village extends State<Village> {
                                                               context: context,
                                                               builder:
                                                                   (context) =>
-                                                                      Chefvillage(
+                                                                      Language(
                                                                         id: data[index]
                                                                             [
                                                                             "id"],
@@ -319,7 +321,7 @@ class _Village extends State<Village> {
                                                               context: context,
                                                               builder:
                                                                   (context) =>
-                                                                      Chefvillage(
+                                                                      Eaux(
                                                                         id: data[index]
                                                                             [
                                                                             "id"],

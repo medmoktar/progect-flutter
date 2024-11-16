@@ -1,29 +1,32 @@
 import 'dart:convert';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:http/http.dart' as http;
 import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:rapport/packages/dropdown.dart';
 import 'package:rapport/url.dart';
 
-class Createreseaux extends StatefulWidget {
+class Createlanguage extends StatefulWidget {
   final id;
-  const Createreseaux({super.key, required this.id});
+  const Createlanguage({super.key, required this.id});
+
   @override
-  State<Createreseaux> createState() => _CreatereseauxState();
+  State<Createlanguage> createState() => _CreatelanguageState();
 }
 
-class _CreatereseauxState extends State<Createreseaux> {
-  late List reseau = [];
-  reseaux() async {
-    var x = await http.get(Uri.parse("${Url().URL}/api/reseaux"));
-    reseau = jsonDecode(x.body);
+class _CreatelanguageState extends State<Createlanguage> {
+  late AppTextField f;
+  TextEditingController z = TextEditingController();
+
+  late List langue = [];
+  language() async {
+    var x = await http.get(Uri.parse("${Url().URL}/api/language"));
+    langue = jsonDecode(x.body);
     setState(() {});
   }
 
-  create(id, List data) async {
-    var url = Uri.parse("${Url().URL}/api/village/reseaux/$id");
+  createL(id, List data) async {
+    var url = Uri.parse("${Url().URL}/api/village/language/$id");
     final Map<String, String> headers = {'Content-Type': 'application/json'};
     int x = 0;
     for (var i = 0; i < data.length; i++) {
@@ -46,16 +49,13 @@ class _CreatereseauxState extends State<Createreseaux> {
     }
   }
 
- 
-
   @override
-  initState() {
-    reseaux();
+  void initState() {
+    // TODO: implement initState
     super.initState();
+    language();
   }
 
-  late AppTextField f;
-  TextEditingController z = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,21 +68,19 @@ class _CreatereseauxState extends State<Createreseaux> {
             f = AppTextField(
               textEditingController: z,
               cities: [
-                for (var i = 0; i < reseau.length; i++)
-                  SelectedListItem(name: reseau[i]['nom'])
+                for (var i = 0; i < langue.length; i++)
+                  SelectedListItem(name: langue[i]['nom'])
               ],
               title: "",
-              hint: "Select resaux",
+              hint: "Select Language",
               isCitySelected: true,
               MultileSelection: true,
-              
             ),
-            
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: ElevatedButton(
                   onPressed: () {
-                    create(widget.id, f.list);
+                    createL(widget.id, f.list);
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

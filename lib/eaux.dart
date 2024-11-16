@@ -1,31 +1,30 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:rapport/createreseaux.dart';
-import 'package:rapport/updatereseaux.dart';
-import 'package:rapport/url.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:rapport/createEaux.dart';
+import 'package:rapport/updateEaux.dart';
+import 'package:rapport/url.dart';
 
-class Reseaux extends StatefulWidget {
+class Eaux extends StatefulWidget {
   final id;
-  const Reseaux({super.key, required this.id});
+  const Eaux({super.key, required this.id});
 
   @override
-  State<Reseaux> createState() => _Reseaux();
+  State<Eaux> createState() => _EauxState();
 }
 
-class _Reseaux extends State<Reseaux> {
+class _EauxState extends State<Eaux> {
   late List A = [];
   late bool t = false;
   reseaux(id) async {
-    var x = await http.get(Uri.parse("${Url().URL}/api/reseaux/store/$id"));
+    var x = await http.get(Uri.parse("${Url().URL}/api/pointdeaux/store/$id"));
     A = jsonDecode(x.body);
     t = true;
     setState(() {});
   }
 
   @override
-  void initState() { 
+  void initState() {
     reseaux(widget.id);
     super.initState();
   }
@@ -44,14 +43,14 @@ class _Reseaux extends State<Reseaux> {
                     child: Card(
                       child: ListTile(
                         title: Text(
-                          "Reseaux",
+                          "Points d'eaux",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         trailing: ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      Createreseaux(id: widget.id)));
+                                      Createeaux(id: widget.id)));
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue,
@@ -66,7 +65,7 @@ class _Reseaux extends State<Reseaux> {
                         height: 25,
                       ),
                       const Text(
-                        "Reseaux",
+                        "Points d'eaux",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -100,9 +99,8 @@ class _Reseaux extends State<Reseaux> {
                         child: TextButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Updatereseaux(
-                                        id: widget.id,
-                                      )));
+                                  builder: (context) =>
+                                      Updateeaux(id: widget.id)));
                             },
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.blue,

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:rapport/createchefvillage.dart';
+import 'package:rapport/updatechefvillage.dart';
 import 'package:rapport/url.dart';
 
 class Chefvillage extends StatefulWidget {
@@ -16,7 +17,7 @@ class _Chefvillage extends State<Chefvillage> {
   late List A = [];
   late bool t = false;
   chef(id) async {
-    var x = await http.get(Uri.parse("${Url().URL}/api/village/chef/$id"));
+    var x = await http.get(Uri.parse("${Url().URL}/api/chefvillage/store/$id"));
     A = jsonDecode(x.body);
     t = true;
     setState(() {});
@@ -132,7 +133,12 @@ class _Chefvillage extends State<Chefvillage> {
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Updatechefvillage(
+                                      id: widget.id,
+                                    )));
+                          },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.blue,
                               foregroundColor: Colors.white),
